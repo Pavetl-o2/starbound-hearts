@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starbound Hearts</title>
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+
+<div id="starfield"></div>
+
+<div id="game">
+  <!-- HUD -->
+  <div id="hud">
+    <div id="hud-title">STARBOUND HEARTS</div>
+    <div id="hud-sep"></div>
+    <div id="rel-wrap">
+      <div id="rel-label-row">
+        <span id="rel-label">RELATIONSHIP ·· DR. TANAKA</span>
+        <span id="rel-tier">ACQUAINTANCE</span>
+      </div>
+      <div id="rel-bar-bg">
+        <div id="rel-bar-fill"></div>
+      </div>
+    </div>
+    <div id="rel-score">0 / 100</div>
+  </div>
+
+  <!-- Scene -->
+  <div id="scene">
+    <div class="lab-detail grid"></div>
+    <div class="lab-detail ambient"></div>
+    <div class="lab-detail scan"></div>
+    <div class="lab-detail shelf">
+      <div class="shelf-item">FLORA-DB v2.3</div>
+      <div class="shelf-item">PATHOGEN-7</div>
+      <div class="shelf-item">STASIS PODS</div>
+      <div class="shelf-item">BIO-SCANNER</div>
+    </div>
+    <div class="lab-detail plant">🌿</div>
+
+    <div id="location-tag">⬡ MEDIC'S LAB — DECK 4</div>
+    <div id="delta-pop"></div>
+
+    <!-- Character -->
+    <div id="char-area">
+      <div id="char-sprite">
+        <span id="char-expression">😊</span>
+        <img id="char-img" src="assets/characters/yuki/portrait.jpg" alt="Dr. Yuki Tanaka" />
+      </div>
+      <div id="char-nametag">DR. YUKI TANAKA · SHIP MEDIC</div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="win-screen">
+      <div class="win-hearts">💖 💗 💖</div>
+      <div class="win-title">BOND ESTABLISHED</div>
+      <div class="win-subtitle">Dr. Yuki Tanaka has opened her heart to you. The stars feel a little less lonely tonight.</div>
+      <div class="win-quote">"Maybe the light we've been looking for... has been right here all along."</div>
+      <button id="restart-btn" onclick="restartGame()">⟳ BEGIN AGAIN</button>
+    </div>
+
+    <!-- Dialogue -->
+    <div id="dialogue-panel">
+      <div id="dialogue-speaker">DR. YUKI TANAKA</div>
+      <div id="dialogue-text">
+        <span id="text-content"></span>
+        <span class="cursor" id="cursor"></span>
+      </div>
+      <div id="loading-state">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+        <span class="loading-label">DR. TANAKA IS THINKING...</span>
+      </div>
+      <div id="choices"></div>
+      <button id="continue-btn" onclick="advanceScene()">CONTINUE ›</button>
+    </div>
+  </div>
+</div>
+
+<!-- API key injected at build time via Vercel env -->
+<script>
+  window.OPENROUTER_API_KEY = '%%OPENROUTER_API_KEY%%';
+</script>
+<script src="src/js/game.js"></script>
+</body>
+</html>
