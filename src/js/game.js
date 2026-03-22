@@ -170,6 +170,7 @@ async function fetchNextScene(playerChoice = null) {
       body: JSON.stringify({
         model: CONFIG.model,
         max_tokens: 1000,
+        response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: systemPrompt },
           ...conversationHistory
@@ -181,8 +182,12 @@ async function fetchNextScene(playerChoice = null) {
     if (!response.ok) throw new Error(`${response.status}: ${data.error?.message || JSON.stringify(data)}`);
 
     const raw = data.choices?.[0]?.message?.content || '';
+    if (!raw) {
+      const reason = data.choices?.[0]?.finish_reason || 'unknown';
+      throw new Error(`Empty response from model (finish_reason: ${reason})`);
+    }
     const jsonMatch = raw.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON in response');
+    if (!jsonMatch) throw new Error(`No JSON in response. Raw: ${raw.substring(0, 120)}`);
 
     const parsed = JSON.parse(jsonMatch[0]);
     if (!parsed.dialogue || !parsed.choices?.length) throw new Error('Bad response structure');
