@@ -527,13 +527,16 @@ body {
 /* Cards container */
 .cs-cards {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   align-items: stretch;
+  max-width: 820px;
 }
 
 /* Individual card */
 .cs-card {
-  width: 240px;
+  width: 228px;
   background: rgba(5,10,20,0.85);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -774,3 +777,128 @@ body {
 
 /* Vex HUD label — purple */
 #game[data-char="vex"] #rel-label { color: #c084fc; }
+
+/* ══════════════════════════════════════════════════════════
+   JAX KANE — CHARACTER CARD STYLES
+   ══════════════════════════════════════════════════════════ */
+.cs-card-jax:hover {
+  box-shadow: 0 0 40px rgba(249,115,22,0.16), 0 8px 32px rgba(0,0,0,0.6);
+  border-color: rgba(249,115,22,0.5);
+}
+.cs-card-tag-jax { color: #c2410c; }
+.cs-name-jax { color: #f97316; }
+.cs-role-jax { color: #c2410c; }
+.cs-trait-jax {
+  border-color: rgba(249,115,22,0.38);
+  color: #c2410c;
+  background: rgba(249,115,22,0.06);
+}
+.cs-btn-jax {
+  border-color: rgba(249,115,22,0.5);
+  color: #f97316;
+}
+.cs-btn-jax:hover {
+  background: rgba(249,115,22,0.1);
+  box-shadow: 0 0 16px rgba(249,115,22,0.2);
+}
+
+/* ══════════════════════════════════════════════════════════
+   JAX KANE — THEME OVERRIDES
+   Applied via [data-char="jax"] on #game
+   ══════════════════════════════════════════════════════════ */
+
+/* Remap color variables to Jax's amber/orange industrial palette */
+#game[data-char="jax"] {
+  --teal:          #f97316;
+  --teal-dim:      #c2410c;
+  --teal-glow:     rgba(249,115,22,0.18);
+  --border:        rgba(249,115,22,0.2);
+  --border-bright: rgba(249,115,22,0.5);
+  --text-name:     #f97316;
+
+  border-color: rgba(249,115,22,0.5);
+  box-shadow: 0 0 60px rgba(194,65,12,0.14), 0 0 120px rgba(194,65,12,0.05), inset 0 0 40px rgba(0,0,0,0.6);
+}
+
+/* Jax scene background — warm dark industrial, reactor amber from below */
+#game[data-char="jax"] #scene {
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 110%, rgba(194,65,12,0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 20% 25%, rgba(120,40,5,0.2) 0%, transparent 60%),
+    linear-gradient(175deg, #120800 0%, #0c0502 50%, #080300 100%);
+}
+
+/* Jax grid — orange circuit tint */
+#game[data-char="jax"] .lab-detail.grid {
+  background-image:
+    linear-gradient(rgba(249,115,22,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249,115,22,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Jax ambient pulse — warm amber */
+#game[data-char="jax"] .lab-detail.ambient {
+  background: radial-gradient(circle, rgba(194,65,12,0.1) 0%, transparent 70%);
+}
+
+/* Jax portrait drop shadow — amber tint */
+#game[data-char="jax"] #char-img {
+  filter: drop-shadow(0 0 22px rgba(249,115,22,0.28)) drop-shadow(0 12px 50px rgba(0,0,0,0.9));
+}
+
+/* Jax dialogue cursor — orange */
+#game[data-char="jax"] #dialogue-text .cursor { background: #f97316; }
+
+/* Jax loading dots — orange cascade */
+#game[data-char="jax"] .loading-dots span { background: #f97316; }
+#game[data-char="jax"] .loading-dots span:nth-child(2) { background: #c2410c; }
+#game[data-char="jax"] .loading-dots span:nth-child(3) { background: rgba(249,115,22,0.4); }
+
+/* Jax speaker name — orange glow */
+#game[data-char="jax"] #dialogue-speaker {
+  color: #f97316;
+  text-shadow: 0 0 12px rgba(249,115,22,0.45);
+}
+
+/* Jax choice buttons — amber hover */
+#game[data-char="jax"] .choice-btn {
+  background: linear-gradient(90deg, rgba(194,65,12,0.07) 0%, rgba(194,65,12,0.03) 100%);
+  border-color: rgba(249,115,22,0.22);
+}
+#game[data-char="jax"] .choice-btn::before { color: #c2410c; }
+#game[data-char="jax"] .choice-btn:hover {
+  background: linear-gradient(90deg, rgba(249,115,22,0.14) 0%, rgba(194,65,12,0.06) 100%);
+  border-color: rgba(249,115,22,0.5);
+  box-shadow: 0 0 14px rgba(194,65,12,0.14);
+}
+
+/* Jax win screen — amber */
+#game[data-char="jax"] .win-title {
+  color: #f97316;
+  text-shadow: 0 0 30px rgba(249,115,22,0.5);
+}
+#game[data-char="jax"] .win-quote {
+  color: #f97316;
+  border-color: #c2410c;
+}
+#game[data-char="jax"] #restart-btn {
+  border-color: #c2410c;
+  color: #f97316;
+}
+#game[data-char="jax"] #restart-btn:hover {
+  background: rgba(194,65,12,0.14);
+  box-shadow: 0 0 20px rgba(194,65,12,0.2);
+}
+
+/* Jax delta positive — warm amber (same family but distinct from teal/gold) */
+#game[data-char="jax"] #delta-pop.show-pos { color: #fb923c; }
+
+/* Jax shelf items — orange tint */
+#game[data-char="jax"] .shelf-item {
+  color: #c2410c;
+  border-color: rgba(249,115,22,0.22);
+  background: rgba(249,115,22,0.04);
+}
+
+/* Jax HUD label — orange */
+#game[data-char="jax"] #rel-label { color: #f97316; }
