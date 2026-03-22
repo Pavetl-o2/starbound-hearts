@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════
    STARBOUND HEARTS — Main Stylesheet
-   Phase 1: Medic's Lab
+   Dr. Yuki Tanaka · Vex Noir
    ═══════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Lora:ital,wght@0,400;0,600;1,400&family=Orbitron:wght@400;700;900&display=swap');
@@ -487,3 +487,290 @@ body {
   #dialogue-text { font-size: 0.82rem; }
   .choice-btn { font-size: 0.77rem; padding: 8px 12px; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   CHARACTER SELECT SCREEN
+   ══════════════════════════════════════════════════════════ */
+#char-select {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,60,80,0.18) 0%, transparent 70%),
+    linear-gradient(175deg, #060d18 0%, #05080f 100%);
+  padding: 24px 16px;
+  animation: fadeIn 0.6s ease;
+}
+#char-select.show { display: flex; }
+
+.cs-header { text-align: center; }
+.cs-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: var(--teal-dim);
+  margin-bottom: 6px;
+}
+.cs-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Cards container */
+.cs-cards {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Individual card */
+.cs-card {
+  width: 240px;
+  background: rgba(5,10,20,0.85);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.cs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(0,201,167,0.14), 0 8px 32px rgba(0,0,0,0.6);
+  border-color: var(--border-bright);
+}
+.cs-card-vex:hover {
+  box-shadow: 0 0 40px rgba(192,132,252,0.18), 0 8px 32px rgba(0,0,0,0.6);
+  border-color: rgba(192,132,252,0.55);
+}
+
+/* Portrait area */
+.cs-card-portrait {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cs-card-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+  transition: transform 0.4s ease;
+}
+.cs-card:hover .cs-card-portrait img { transform: scale(1.04); }
+.cs-card-portrait::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55px;
+  background: linear-gradient(to top, rgba(5,10,20,0.92) 0%, transparent 100%);
+  pointer-events: none;
+}
+.cs-card-tag {
+  position: absolute;
+  bottom: 8px; left: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  color: var(--teal-dim);
+  text-transform: uppercase;
+}
+.cs-card-tag-vex { color: #7c3aed; }
+
+/* Card info */
+.cs-card-info {
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.cs-card-name {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+}
+.cs-name-vex { color: #c084fc; }
+.cs-card-role {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.cs-role-vex { color: #7c3aed; }
+.cs-card-desc {
+  font-family: 'Lora', serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--text-main);
+  flex: 1;
+}
+.cs-card-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+.cs-trait {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  color: var(--teal-dim);
+  background: rgba(0,201,167,0.05);
+}
+.cs-trait-vex {
+  border-color: rgba(124,58,237,0.4);
+  color: #7c3aed;
+  background: rgba(124,58,237,0.07);
+}
+
+/* Select button */
+.cs-btn {
+  margin-top: 10px;
+  background: transparent;
+  border: 1px solid var(--border-bright);
+  color: var(--teal);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+}
+.cs-btn:hover { background: var(--teal-glow); box-shadow: 0 0 16px rgba(0,201,167,0.2); }
+.cs-btn-vex {
+  border-color: rgba(192,132,252,0.55);
+  color: #c084fc;
+}
+.cs-btn-vex:hover {
+  background: rgba(192,132,252,0.1);
+  box-shadow: 0 0 16px rgba(192,132,252,0.2);
+}
+
+@media (max-width: 560px) {
+  .cs-cards { flex-direction: column; gap: 16px; }
+  .cs-card { width: 100%; max-width: 300px; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   VEX NOIR — THEME OVERRIDES
+   Applied via [data-char="vex"] on #game
+   ══════════════════════════════════════════════════════════ */
+
+/* Remap color variables for Vex's purple/gold palette */
+#game[data-char="vex"] {
+  --teal:          #c084fc;
+  --teal-dim:      #7c3aed;
+  --teal-glow:     rgba(192,132,252,0.18);
+  --border:        rgba(192,132,252,0.22);
+  --border-bright: rgba(192,132,252,0.55);
+  --text-name:     #c084fc;
+
+  /* Remap game border to Vex color */
+  border-color: rgba(192,132,252,0.55);
+  box-shadow: 0 0 60px rgba(124,58,237,0.15), 0 0 120px rgba(124,58,237,0.06), inset 0 0 40px rgba(0,0,0,0.6);
+}
+
+/* Vex scene background — darker, purple-tinged navigation bridge */
+#game[data-char="vex"] #scene {
+  background:
+    radial-gradient(ellipse 70% 80% at 30% 60%, rgba(30,10,60,0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 20%, rgba(60,10,80,0.35) 0%, transparent 60%),
+    linear-gradient(175deg, #0e0820 0%, #090614 50%, #05030f 100%);
+}
+
+/* Vex grid — purple tint */
+#game[data-char="vex"] .lab-detail.grid {
+  background-image:
+    linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Vex ambient pulse — purple */
+#game[data-char="vex"] .lab-detail.ambient {
+  background: radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 70%);
+}
+
+/* Vex portrait drop shadow — purple tint */
+#game[data-char="vex"] #char-img {
+  filter: drop-shadow(0 0 24px rgba(124,58,237,0.3)) drop-shadow(0 12px 50px rgba(0,0,0,0.9));
+}
+
+/* Vex dialogue cursor — purple */
+#game[data-char="vex"] #dialogue-text .cursor {
+  background: #c084fc;
+}
+
+/* Vex loading dots — purple */
+#game[data-char="vex"] .loading-dots span { background: #c084fc; }
+#game[data-char="vex"] .loading-dots span:nth-child(2) { background: #7c3aed; }
+#game[data-char="vex"] .loading-dots span:nth-child(3) { background: rgba(192,132,252,0.4); }
+
+/* Vex speaker name — purple glow */
+#game[data-char="vex"] #dialogue-speaker {
+  color: #c084fc;
+  text-shadow: 0 0 12px rgba(192,132,252,0.5);
+}
+
+/* Vex choice buttons — purple hover */
+#game[data-char="vex"] .choice-btn {
+  background: linear-gradient(90deg, rgba(124,58,237,0.07) 0%, rgba(124,58,237,0.03) 100%);
+  border-color: rgba(124,58,237,0.25);
+}
+#game[data-char="vex"] .choice-btn::before { color: #7c3aed; }
+#game[data-char="vex"] .choice-btn:hover {
+  background: linear-gradient(90deg, rgba(192,132,252,0.14) 0%, rgba(124,58,237,0.06) 100%);
+  border-color: rgba(192,132,252,0.55);
+  box-shadow: 0 0 14px rgba(124,58,237,0.14);
+}
+
+/* Vex win screen — dark rose → purple */
+#game[data-char="vex"] .win-title {
+  color: #c084fc;
+  text-shadow: 0 0 30px rgba(192,132,252,0.55);
+}
+#game[data-char="vex"] .win-quote {
+  color: #c084fc;
+  border-color: #7c3aed;
+}
+#game[data-char="vex"] #restart-btn {
+  border-color: #7c3aed;
+  color: #c084fc;
+}
+#game[data-char="vex"] #restart-btn:hover {
+  background: rgba(124,58,237,0.15);
+  box-shadow: 0 0 20px rgba(124,58,237,0.2);
+}
+
+/* Vex delta positive — gold instead of teal */
+#game[data-char="vex"] #delta-pop.show-pos { color: #f59e0b; }
+
+/* Vex shelf items — purple tint */
+#game[data-char="vex"] .shelf-item {
+  color: #7c3aed;
+  border-color: rgba(124,58,237,0.25);
+  background: rgba(124,58,237,0.05);
+}
+
+/* Vex HUD label — purple */
+#game[data-char="vex"] #rel-label { color: #c084fc; }
